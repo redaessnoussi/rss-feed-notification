@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+  "name": "RSS Notifier",
+  "version": "1.0",
+  "description": "Fetches RSS feed and displays a notification with sound.",
+  "permissions": [
+    "storage",
+    "notifications",
+    "https://*/*",
+    "activeTab"
+  ],
+  "browser_action": {
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    },
+    "default_popup": "popup.html"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RSS Notifier</title>
+  <style>
+    body {
+      width: 300px;
+      text-align: center;
+    }
+
+    #rssInput {
+      width: 80%;
+      margin-bottom: 10px;
+    }
+
+    #fetchRSS {
+      width: 100%;
+    }
+
+    #rssData {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" id="rssInput" placeholder="Enter RSS URL"
+    value="https://www.upwork.com/ab/feed/jobs/rss?amp%3BorgUid=1320055536185286657&amp;amp%3Bpaging=0%3B10&amp;amp%3Bq=frontend&amp;amp%3BsecurityToken=a3300909c5c4ba0f21f4c44a65e249b6c0fde28e2065d51bd9c47629a6f31ea93e7e91ece0e63b4c4fb75fe3731be23a98e4d0e06c2e4fcebc76fad5ba91bb1f&amp;amp%3Bsort=recency&amp;amp%3BuserUid=1320055536181092352&amp;amp%3Bverified_payment_only=1&amp;api_params=1">
+  <button id="fetchRSS">Fetch RSS</button>
+  <div id="rssTitle"></div>
+  <div id="rssItems"></div>
+  <script src="popup.js"></script>
+</body>
+
+</html>

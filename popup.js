@@ -1,3 +1,5 @@
+// popup.js
+
 document.addEventListener("DOMContentLoaded", function () {
   var readRSSButton = document.getElementById("fetchRSS");
   readRSSButton.addEventListener("click", function () {
@@ -43,12 +45,36 @@ function showItems(xmlDoc) {
 
   rssItems = xmlDoc.getElementsByTagName("item");
 
+  // LOOP TROUGHT THE ITEMS AND APPEND THE TITLE AND LINK VALUE TO THE HTML CONTAINER
   for (let index = 0; index < rssItems.length; index++) {
     itemIndex = rssItems[index];
     itemTitle = itemIndex.querySelector("title").textContent;
     itemLink = itemIndex.querySelector("link").textContent;
-    itemsContainer.innerHTML += `<a href="${itemLink}" target="_blank">${itemTitle}</a>`;
+    itemsContainer.innerHTML += `<p><a href="${itemLink}" target="_blank">${itemTitle}</a></p>`;
   }
+
+  lastItemTitle = rssItems[0].querySelector("title").textContent;
+  // Update the saved title in storage
+  chrome.storage.sync.set({ savedTitle: lastItemTitle });
+
+  // No need to call refreshRssItems here, as it is now handled by the background script
 }
 
-function refreshRssItems() {}
+// REMOVE THE REFRESH RSS ITEMS FUNCTION FROM popup.js
+
+function showNotification(title, message) {
+  // Notification options
+  const options = {
+    type: "basic",
+    iconUrl: "icon.png",
+    title: title,
+    message: message,
+  };
+
+  // Play a notification sound (you can replace 'sound.mp3' with your sound file)
+  const audio = new Audio("sound.mp3");
+  audio.play();
+
+  // Show notification
+  chrome.notifications.create(options);
+}

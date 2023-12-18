@@ -5,9 +5,26 @@
   "description": "Fetches RSS feed and displays a notification with sound.",
   "permissions": [
     "storage",
+    "alarms",
     "notifications",
     "https://*/*",
     "activeTab"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
   ],
   "browser_action": {
     "default_icon": {

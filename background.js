@@ -7,10 +7,13 @@ chrome.alarms.create("updateAlarm", {
 
 // Add an event listener for the alarm
 chrome.alarms.onAlarm.addListener(function (alarm) {
-  console.log("hello");
   if (alarm.name === "updateAlarm") {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { action: "refreshRssItems" });
+    console.log("hello");
+    chrome.tabs.query({}, function (tabs) {
+      // Send the message to all tabs
+      tabs.forEach(function (tab) {
+        chrome.tabs.sendMessage(tab.id, { action: "refreshRssItems" });
+      });
     });
   }
 });

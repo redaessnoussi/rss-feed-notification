@@ -1,15 +1,24 @@
 // content.js
 
+var selectedItem;
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "selectedFeedItem") {
+    selectedItem = request.data;
+    console.log("selected item is ", selectedItem);
+  }
+
   if (request.action === "refreshRssItems") {
-    refreshRssItems();
+    // Check if selectedItem is defined before calling refreshRssItems
+    if (selectedItem) {
+      refreshRssItems(selectedItem);
+    } else {
+      console.error("selectedItem is not defined.");
+    }
   }
 });
 
-function refreshRssItems() {
-  var rssInput = document.getElementById("rssInput");
-  var rssURL = rssInput.value.trim();
-
+function refreshRssItems(rssURL) {
   // FETCH RSS FROM THE INPUT
   fetch(rssURL)
     .then((response) => response.text())

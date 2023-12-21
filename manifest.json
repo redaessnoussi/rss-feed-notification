@@ -10,6 +10,12 @@
     "https://*/*",
     "activeTab"
   ],
+  "web_accessible_resources": [
+    "add.html",
+    "check.html",
+    "add.js",
+    "check.js"
+  ],
   "background": {
     "scripts": [
       "background.js"

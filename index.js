@@ -35,8 +35,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (request.action === "showPopup") {
       showFrame(popupFrame);
     } else if (request.action === "showAdd") {
+      pageIndex = 1;
       showFrame(addFrame);
     } else if (request.action === "showCheck") {
+      pageIndex = 2;
       showFrame(checkFrame);
     }
   });

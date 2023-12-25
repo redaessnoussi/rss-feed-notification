@@ -4,7 +4,7 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     var selectedItem = request.data;
-    console.log("The selected item was :", selectedItem);
+    // console.log("The selected item was :", selectedItem);
 
     fetchRssData(selectedItem);
   }
@@ -51,21 +51,4 @@ function showItems(xmlDoc) {
   lastItemTitle = rssItems[0].querySelector("title").textContent;
   // Update the saved title in storage
   chrome.storage.sync.set({ savedTitle: lastItemTitle });
-}
-
-function showNotification(title, message) {
-  // Notification options
-  const options = {
-    type: "basic",
-    iconUrl: "icon.png",
-    title: title,
-    message: message,
-  };
-
-  // Play a notification sound (you can replace 'sound.mp3' with your sound file)
-  const audio = new Audio("sound.mp3");
-  audio.play();
-
-  // Show notification
-  chrome.notifications.create(options);
 }

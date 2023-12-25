@@ -5,7 +5,7 @@ var selectedItem;
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     selectedItem = request.data;
-    console.log("selected item is ", selectedItem);
+    // console.log("selected item is ", selectedItem);
   }
 
   if (request.action === "refreshRssItems") {
@@ -52,4 +52,21 @@ function refreshRssItems(rssURL) {
         }
       });
     });
+}
+
+function showNotification(title, message) {
+  // Notification options
+  const options = {
+    type: "basic",
+    iconUrl: "icon.png",
+    title: title,
+    message: message,
+  };
+
+  // Play a notification sound (you can replace 'sound.mp3' with your sound file)
+  const audio = new Audio("sound.mp3");
+  audio.play();
+
+  // Show notification
+  chrome.notifications.create(options);
 }

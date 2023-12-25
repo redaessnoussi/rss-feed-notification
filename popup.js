@@ -25,23 +25,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Load saved feeds from storage and populate the UI
-  loadSavedFeeds();
+  // loadSavedFeeds();
 });
 
 function openPage(pageName) {
   chrome.tabs.create({ url: pageName });
-}
-
-function loadSavedFeeds() {
-  chrome.storage.sync.get(["rssFeeds"], function (result) {
-    var rssFeeds = result.rssFeeds || [];
-    console.log(rssFeeds);
-
-    chrome.runtime.sendMessage({ action: "storedFeeds", data: rssFeeds });
-
-    rssFeeds.forEach(function (rssURL) {
-      console.log(rssURL);
-      // fetchRssData(rssURL);
-    });
-  });
 }

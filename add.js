@@ -21,6 +21,9 @@ function addRssURL() {
   });
   // Notify the background script about the new feed URL
   chrome.runtime.sendMessage({ action: "newFeedAdded", data: rssURL });
+
+  // Dynamically update the UI to show the newly added feed
+  updateUIWithNewFeeds(rssURL);
 }
 
 // Getting the added RSS Feeds URL's as an array
@@ -28,7 +31,7 @@ function addRssURL() {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "storedFeeds") {
     var storedFeeds = request.data;
-    console.log("Stored feeds:", storedFeeds);
+    // console.log("Stored feeds:", storedFeeds);
 
     var storedRssFeeds = document.getElementById("storedRss");
     storedRssFeeds.innerHTML = "";
@@ -56,3 +59,27 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     }
   }
 });
+
+// Function to dynamically update the UI with the newly added feed
+function updateUIWithNewFeeds(rssURL) {
+  // Get the container for stored feeds
+  var storedRssFeeds = document.getElementById("storedRss");
+
+  // Create a new link element for the added feed
+  var linkElement = document.createElement("a");
+  linkElement.href = "#"; // Set href to "#" to prevent page reload
+  linkElement.classList.add("feedURL");
+  linkElement.innerText = `New Feed`;
+
+  // Add a click event listener to the link
+  linkElement.addEventListener("click", function () {
+    chrome.runtime.sendMessage({ action: "selectedFeedItem", data: rssURL });
+  });
+
+  // Create a new paragraph element and append the link to it
+  var paragraphElement = document.createElement("p");
+  paragraphElement.appendChild(linkElement);
+
+  // Append the paragraph element to the container
+  storedRssFeeds.appendChild(paragraphElement);
+}

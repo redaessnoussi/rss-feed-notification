@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   var checkPageButton = document.getElementById("checkPage");
   var clearRssButton = document.getElementById("clearRss");
 
+  sendMessageToIndex("showPopup");
+
   clearRssButton.addEventListener("click", function () {
     // Clear all data stored in chrome.storage.sync
     chrome.storage.sync.clear(function () {
@@ -17,16 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   addPageButton.addEventListener("click", function () {
-    openPage("add.html");
+    sendMessageToIndex("showAdd");
+    // openPage("add.html");
   });
 
   checkPageButton.addEventListener("click", function () {
-    openPage("check.html");
+    sendMessageToIndex("showCheck");
+    // openPage("check.html");
   });
 
   // Load saved feeds from storage and populate the UI
   // loadSavedFeeds();
 });
+
+function sendMessageToIndex(action) {
+  // Send a message to index.html with the selected action
+  chrome.runtime.sendMessage({ action: action });
+}
 
 function openPage(pageName) {
   chrome.tabs.create({ url: pageName });

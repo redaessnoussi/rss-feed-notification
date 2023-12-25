@@ -12,9 +12,9 @@
   ],
   "web_accessible_resources": [
     "add.html",
+    "popup.html",
     "check.html",
-    "add.js",
-    "check.js"
+    "add.js"
   ],
   "background": {
     "scripts": [
@@ -38,7 +38,7 @@
       "48": "icon.png",
       "128": "icon.png"
     },
-    "default_popup": "popup.html"
+    "default_popup": "index.html"
   },
   "icons": {
     "16": "icon.png",

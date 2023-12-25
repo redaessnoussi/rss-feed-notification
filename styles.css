@@ -1,0 +1,17 @@
+body {
+  width: 300px;
+  text-align: center;
+}
+
+#rssInput {
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+#fetchRSS {
+  width: 100%;
+}
+
+#rssItems {
+  margin-top: 10px;
+}

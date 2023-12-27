@@ -12,11 +12,13 @@
 <body>
   <button type="button" id="previousBtn">Previous</button>
   <button type="button" id="nextBtn">Next</button>
-  <iframe id="popupFrame" src="popup.html" width="100%" height="300px" frameborder="0"></iframe>
-  <iframe id="addFrame" src="add.html" width="100%" height="300px" frameborder="0"></iframe>
-  <iframe id="checkFrame" src="check.html" width="100%" height="300px" frameborder="0"></iframe>
+  <iframe id="popupFrame" data-page-type="popup" src="popup.html" width="100%" height="300px" frameborder="0"></iframe>
+  <iframe id="addFrame" data-page-type="add" src="add.html" width="100%" height="300px" frameborder="0"></iframe>
+  <iframe id="checkFrame" data-page-type="check" src="check.html" width="100%" height="300px" frameborder="0"></iframe>
 
   <script src="index.js"></script>
+  <script src="background.js"></script>
+  <script src="content.js"></script>
 </body>
 
 

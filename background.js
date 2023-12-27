@@ -2,14 +2,26 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   loadSavedFeeds();
+  storeClickedFeed();
 });
+
+function storeClickedFeed() {
+  chrome.runtime.onMessage.addListener(function (
+    request,
+    sender,
+    sendResponse
+  ) {
+    if (request.action === "selectedFeedItem") {
+      var selectedRssURL = request.data;
+
+      chrome.storage.sync.set({ selectedRssURL: selectedRssURL });
+    }
+  });
+}
 
 function loadSavedFeeds() {
   chrome.storage.sync.get(["rssFeeds"], function (result) {
     var rssFeeds = result.rssFeeds || [];
-    console.log("loaded feed f ga3 les page: ", rssFeeds);
-
-    // chrome.runtime.sendMessage({ action: "storedFeeds", data: rssFeeds });
 
     var storedRssFeeds = document.getElementById("storedRss");
 
@@ -53,13 +65,31 @@ chrome.alarms.create("updateAlarm", {
 
 // Add an event listener for the alarm
 chrome.alarms.onAlarm.addListener(function (alarm) {
+  console.log("update");
   if (alarm.name === "updateAlarm") {
-    // console.log("hello");
-    chrome.tabs.query({}, function (tabs) {
-      // Send the message to all tabs
-      tabs.forEach(function (tab) {
-        chrome.tabs.sendMessage(tab.id, { action: "refreshRssItems" });
-      });
-    });
+    chrome.runtime.sendMessage({ action: "refreshRssItems" });
   }
 });
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "showNotification") {
+    showNotification("Rss Feed Updated", "Check for new feeds!");
+  }
+});
+
+function showNotification(title, message) {
+  // Notification options
+  const options = {
+    type: "basic",
+    iconUrl: "icon.png",
+    title: title,
+    message: message,
+  };
+
+  // Play a notification sound (you can replace 'sound.mp3' with your sound file)
+  const audio = new Audio("sound.mp3");
+  audio.play();
+
+  // Show notification
+  chrome.notifications.create(options);
+}

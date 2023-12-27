@@ -1,3 +1,5 @@
+//index.js
+
 document.addEventListener("DOMContentLoaded", function () {
   const popupFrame = document.getElementById("popupFrame");
   const addFrame = document.getElementById("addFrame");
@@ -14,7 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (pageIndex > 0) {
       pageIndex--;
       showFrame(pagesArray[pageIndex]);
-      console.log("Previous");
+      const currentPageType =
+        pagesArray[pageIndex].getAttribute("data-page-type");
+      currentPageType === "check" && fetchRssItems(pageIndex);
     }
   });
 
@@ -22,7 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (pageIndex < pagesArray.length - 1) {
       pageIndex++;
       showFrame(pagesArray[pageIndex]);
-      console.log("Next");
+      const currentPageType =
+        pagesArray[pageIndex].getAttribute("data-page-type");
+      currentPageType === "check" && fetchRssItems(pageIndex);
     }
   });
 
@@ -52,4 +58,8 @@ function showFrame(frameToShow) {
 
   // Show the selected frame
   frameToShow.style.display = "block";
+}
+
+function fetchRssItems(pageIndex) {
+  chrome.runtime.sendMessage({ action: "fetchItemsPage", data: pageIndex });
 }

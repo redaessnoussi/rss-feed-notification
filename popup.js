@@ -20,16 +20,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   addPageButton.addEventListener("click", function () {
     sendMessageToIndex("showAdd");
-    // openPage("add.html");
   });
 
   checkPageButton.addEventListener("click", function () {
     sendMessageToIndex("showCheck");
-    // openPage("check.html");
   });
-
-  // Load saved feeds from storage and populate the UI
-  // loadSavedFeeds();
 });
 
 function sendMessageToIndex(action) {

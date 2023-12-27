@@ -4,9 +4,27 @@
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     var selectedItem = request.data;
-    // console.log("The selected item was :", selectedItem);
 
     fetchRssData(selectedItem);
+  }
+
+  if (request.action === "fetchItemsPage") {
+    var fetchPage = request.data;
+
+    fetchPage && fetchItemsOnPageLoad();
+  }
+});
+
+function fetchItemsOnPageLoad() {
+  chrome.storage.sync.get(["selectedRssURL"], function (result) {
+    var selectedRssURL = result.selectedRssURL;
+    fetchRssData(selectedRssURL);
+  });
+}
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "updateItems") {
+    fetchItemsOnPageLoad();
   }
 });
 

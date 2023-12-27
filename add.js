@@ -11,7 +11,6 @@ function addRssURL() {
   var rssURL = rssInput.value.trim();
 
   // Fetch and display the new RSS feed
-  // fetchRssData(rssURL);
 
   // Save the new feed URL to storage
   chrome.storage.sync.get(["rssFeeds"], function (result) {
@@ -31,7 +30,6 @@ function addRssURL() {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "storedFeeds") {
     var storedFeeds = request.data;
-    // console.log("Stored feeds:", storedFeeds);
 
     var storedRssFeeds = document.getElementById("storedRss");
     storedRssFeeds.innerHTML = "";

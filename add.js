@@ -18,6 +18,7 @@ function addRssURL() {
     rssFeeds.push(rssURL);
     chrome.storage.sync.set({ rssFeeds: rssFeeds });
   });
+  
   // Notify the background script about the new feed URL
   chrome.runtime.sendMessage({ action: "newFeedAdded", data: rssURL });
 

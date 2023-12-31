@@ -46,7 +46,7 @@ function refreshRssItems(rssURL) {
           chrome.storage.sync.set({ savedTitle: lastItemTitle });
           chrome.runtime.sendMessage({ action: "updateItems" });
           // Show the notification only once for new data
-          chrome.runtime.sendMessage({ action: "showNotification" });
+          // chrome.runtime.sendMessage({ action: "showNotification" });
         }
       });
     });

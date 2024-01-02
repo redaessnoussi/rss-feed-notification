@@ -3,6 +3,7 @@
 
 <head>
   <title>RSS Notifier</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 
 <!-- <body>
@@ -19,9 +20,13 @@
 <!-- popup.html -->
 
 <body>
-  <button id="addPage">Add RSS Feed</button>
-  <button id="checkPage">Check RSS Data</button>
-  <button id="clearRss">Clear RSS Feeds</button>
+  <div class="d-grid gap-2">
+
+    <button id="addPage" class="btn btn-primary" type="button">Add RSS</button>
+    <button id="checkPage" class="btn btn-primary" type="button">Check RSS Feeds</button>
+    <button id="clearRss" class="btn btn-primary" type="button">Clear All RSS</button>
+  </div>
+  <script src="bootstrap/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="popup.js"></script>
   <!-- <script src="background.js"></script> -->
   <!-- <script src="content.js"></script> -->

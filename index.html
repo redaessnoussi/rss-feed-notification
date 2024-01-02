@@ -2,23 +2,30 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!-- primary: #ff7059 -->
+<!-- secondary: #146686 -->
+<!-- info: #9dd9d2 -->
+<!-- warming: #f4d06f -->
+<!-- background: #fff8f0 -->
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Extension Pages</title>
+  <link href="bootstrap/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 
-<body>
-  <button type="button" id="previousBtn">Previous</button>
-  <button type="button" id="nextBtn">Next</button>
-  <iframe id="popupFrame" data-page-type="popup" src="popup.html" width="100%" height="300px" frameborder="0"></iframe>
-  <iframe id="addFrame" data-page-type="add" src="add.html" width="100%" height="300px" frameborder="0"></iframe>
-  <iframe id="checkFrame" data-page-type="check" src="check.html" width="100%" height="300px" frameborder="0"></iframe>
+<body class="p-3">
+  <h1 class="text-primary mb-3">RSS Notifier 1.0</h1>
+  <iframe id="popupFrame" class="mb-3" data-page-type="popup" src="popup.html" width="100%" height="250px" frameborder="0"></iframe>
+  <iframe id="addFrame" class="mb-3" data-page-type="add" src="add.html" width="100%" height="250px" frameborder="0"></iframe>
+  <iframe id="checkFrame" class="mb-3" data-page-type="check" src="check.html" width="100%" height="250px" frameborder="0"></iframe>
+  <button type="button" id="previousBtn" class="btn btn-primary">Previous</button>
+  <button type="button" id="nextBtn" class="btn btn-primary">Next</button>
 
+  <script src="bootstrap/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="index.js"></script>
-  <!-- <script src="background.js"></script> -->
-  <!-- <script src="content.js"></script> -->
 </body>
 
 

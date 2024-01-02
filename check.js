@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     var selectedItem = request.data;
 
-    fetchRssData(selectedItem);
+    fetchRssData(selectedItem.rssURL);
   }
 
   if (request.action === "fetchItemsPage") {
@@ -18,7 +18,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 function fetchItemsOnPageLoad() {
   chrome.storage.sync.get(["selectedRssURL"], function (result) {
     var selectedRssURL = result.selectedRssURL;
-    fetchRssData(selectedRssURL);
+    // console.log(selectedRssURL)
+    selectedRssURL && fetchRssData(selectedRssURL);
   });
 }
 
@@ -48,7 +49,7 @@ function dashbaordTitle(xmlDoc) {
   rssTitle = xmlDoc.querySelector("channel title").textContent;
   rssDescription = xmlDoc.querySelector("channel description").textContent;
 
-  titleContainer.innerHTML = `<h3>${rssTitle}</h3><p>${rssDescription}</p>`;
+  titleContainer.innerHTML = `<h6>${rssTitle}</h6><p class="small">${rssDescription}</p>`;
 }
 
 // SHOW ITEMS OF RSS AND APPEND THEM TO THE LOOP
@@ -63,7 +64,7 @@ function showItems(xmlDoc) {
     itemIndex = rssItems[index];
     itemTitle = itemIndex.querySelector("title").textContent;
     itemLink = itemIndex.querySelector("link").textContent;
-    itemsContainer.innerHTML += `<p><a href="${itemLink}" target="_blank">${itemTitle}</a></p>`;
+    itemsContainer.innerHTML += `<p class="small"><a href="${itemLink}" target="_blank">${itemTitle}</a></p>`;
   }
 
   lastItemTitle = rssItems[0].querySelector("title").textContent;

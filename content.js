@@ -15,8 +15,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     } else {
       chrome.storage.sync.get(["selectedRssURL"], function (result) {
         var selectedRssURL = result.selectedRssURL;
+        console.log(selectedRssURL.rssURL)
         // console.log("hna ga3ma darna click 3la url rss item");
-        refreshRssItems(selectedRssURL);
+        refreshRssItems(selectedRssURL.rssURL);
       });
     }
   }

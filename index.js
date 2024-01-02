@@ -46,9 +46,16 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (request.action === "showCheck") {
       pageIndex = 2;
       showFrame(checkFrame);
+      fetchRssItems(pageIndex);
+      sendMessageToIndex("showCheck");
     }
   });
 });
+
+function sendMessageToIndex(action) {
+  // Send a message to index.html with the selected action
+  chrome.runtime.sendMessage({ action: action });
+}
 
 function showFrame(frameToShow) {
   // Hide all frames

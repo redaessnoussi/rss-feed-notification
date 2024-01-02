@@ -13,8 +13,9 @@ function storeClickedFeed() {
   ) {
     if (request.action === "selectedFeedItem") {
       var selectedRssURL = request.data;
-
-      chrome.storage.sync.set({ selectedRssURL: selectedRssURL });
+      // Send "showCheck" message to index.html with the selected action
+      chrome.runtime.sendMessage({ action: "showCheck" });
+      chrome.storage.sync.set({ selectedRssURL: selectedRssURL.rssURL });
     }
   });
 }
@@ -22,6 +23,8 @@ function storeClickedFeed() {
 function loadSavedFeeds() {
   chrome.storage.sync.get(["rssFeeds"], function (result) {
     var rssFeeds = result.rssFeeds || [];
+
+    console.log(rssFeeds)
 
     var storedRssFeeds = document.getElementById("storedRss");
 
@@ -35,7 +38,7 @@ function loadSavedFeeds() {
         var linkElement = document.createElement("a");
         linkElement.href = "#"; // Set href to "#" to prevent page reload
         linkElement.classList.add("feedURL");
-        linkElement.innerText = `Feed ${index}`;
+        linkElement.innerText = `${feed.rssName}`;
 
         // Add a click event listener to the link
         linkElement.addEventListener("click", function () {
@@ -69,8 +72,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
   if (alarm.name === "updateAlarm") {
     chrome.storage.sync.get(["selectedRssURL"], function (result) {
       var selectedRssURL = result.selectedRssURL;
-      // console.log("refresh dial update");
-      refreshRssItems(selectedRssURL);
+      selectedRssURL && refreshRssItems(selectedRssURL)
     });
     // chrome.runtime.sendMessage({ action: "refreshRssItems" });
   }
@@ -99,8 +101,8 @@ function refreshRssItems(rssURL) {
       chrome.storage.sync.get(["savedTitle"], function (result) {
         var savedTitle = result.savedTitle;
         
-        console.log("savedTitle: ",savedTitle)
-        console.log("lastItemTitle: ",lastItemTitle)
+        // console.log("savedTitle: ",savedTitle)
+        // console.log("lastItemTitle: ",lastItemTitle)
 
 
         // IF THE FIRST ITEM TITLE IS DIFFERENT FROM THE LAST SAVED TITLE

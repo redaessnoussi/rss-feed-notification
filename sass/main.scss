@@ -1,0 +1,12 @@
+$primary: #ff7059;
+$white: #fff;
+
+// Import Bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+.btn-primary {
+  color: $white;
+  &:hover {
+    color: $white;
+  }
+}

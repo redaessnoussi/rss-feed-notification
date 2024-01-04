@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>RSS Notifier</title>
+    <!-- <link href="bootstrap/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="css/main.min.css" />
+  </head>
 
-<head>
-  <title>RSS Notifier</title>
-  <link href="bootstrap/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-</head>
-
-<!-- <body>
+  <!-- <body>
   <input type="text" id="rssInput" placeholder="Enter RSS URL"
     value="https://www.upwork.com/ab/feed/jobs/rss?verified_payment_only=1&q=frontend&sort=recency&paging=0%3B10&api_params=1&securityToken=a3300909c5c4ba0f21f4c44a65e249b6c0fde28e2065d51bd9c47629a6f31ea93e7e91ece0e63b4c4fb75fe3731be23a98e4d0e06c2e4fcebc76fad5ba91bb1f&userUid=1320055536181092352&orgUid=1320055536185286657">
   <button id="fetchRSS">Fetch RSS</button>
@@ -17,20 +17,23 @@
   <script src="content.js"></script>
 </body> -->
 
-<!-- popup.html -->
+  <!-- popup.html -->
 
-<body>
-  <div class="d-grid gap-2">
-
-    <button id="addPage" class="btn btn-primary" type="button">Add RSS</button>
-    <button id="checkPage" class="btn btn-primary" type="button">Check RSS Feeds</button>
-    <button id="clearRss" class="btn btn-primary" type="button">Clear All RSS</button>
-  </div>
-  <script src="bootstrap/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  <script src="popup.js"></script>
-  <!-- <script src="background.js"></script> -->
-  <!-- <script src="content.js"></script> -->
-</body>
-
-
+  <body>
+    <div class="d-grid gap-2">
+      <button id="addPage" class="btn btn-sm btn-primary" type="button">
+        Add RSS
+      </button>
+      <button id="checkPage" class="btn btn-sm btn-primary" type="button">
+        Check RSS Feeds
+      </button>
+      <button id="clearRss" class="btn btn-sm btn-primary" type="button">
+        Clear All RSS
+      </button>
+    </div>
+    <script src="js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="popup.js"></script>
+    <!-- <script src="background.js"></script> -->
+    <!-- <script src="content.js"></script> -->
+  </body>
 </html>

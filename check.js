@@ -5,6 +5,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     var selectedItem = request.data;
 
+    console.log("selectedItem.rssURL", selectedItem.rssURL);
+
     fetchRssData(selectedItem.rssURL);
   }
 
@@ -18,7 +20,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 function fetchItemsOnPageLoad() {
   chrome.storage.sync.get(["selectedRssURL"], function (result) {
     var selectedRssURL = result.selectedRssURL;
-    // console.log(selectedRssURL)
+    // console.log("selectedRssURL :", selectedRssURL);
     selectedRssURL && fetchRssData(selectedRssURL);
   });
 }
@@ -31,6 +33,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 // FETCH THE RSS DATA FROM THE URL
 function fetchRssData(rssURL) {
+  // console.log("fetchRssData :", rssURL);
   fetch(rssURL)
     .then((response) => response.text())
     .then((data) => {

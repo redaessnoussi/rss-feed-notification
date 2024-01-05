@@ -52,7 +52,7 @@ function dashbaordTitle(xmlDoc) {
   rssTitle = xmlDoc.querySelector("channel title").textContent;
   rssDescription = xmlDoc.querySelector("channel description").textContent;
 
-  titleContainer.innerHTML = `<h6>${rssTitle}</h6><p class="small">${rssDescription}</p>`;
+  titleContainer.innerHTML = `<h6>${rssTitle}</h6><p class="small mb-4">${rssDescription}</p>`;
 }
 
 // SHOW ITEMS OF RSS AND APPEND THEM TO THE LOOP
@@ -67,7 +67,7 @@ function showItems(xmlDoc) {
     itemIndex = rssItems[index];
     itemTitle = itemIndex.querySelector("title").textContent;
     itemLink = itemIndex.querySelector("link").textContent;
-    itemsContainer.innerHTML += `<p class="small"><a href="${itemLink}" target="_blank">${itemTitle}</a></p>`;
+    itemsContainer.innerHTML += `<p class="small m-1"><a href="${itemLink}" target="_blank">${itemTitle}</a></p><hr class="m-0">`;
   }
 
   lastItemTitle = rssItems[0].querySelector("title").textContent;

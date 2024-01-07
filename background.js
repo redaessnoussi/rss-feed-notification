@@ -1,10 +1,5 @@
 // background.js
 
-document.addEventListener("DOMContentLoaded", function () {
-  // loadSavedFeeds();
-  // storeClickedFeed();
-});
-
 // Use chrome.alarms to schedule periodic tasks instead of setInterval
 chrome.alarms.create("updateAlarm", {
   periodInMinutes: 0.5, // Adjust the interval as needed
@@ -29,7 +24,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 function refreshRssItems(rssURL) {
-  console.log("refreshRssItems :", rssURL);
+  // console.log("refreshRssItems :", rssURL);
   // FETCH RSS FROM THE INPUT
   fetch(rssURL)
     .then((response) => response.text())

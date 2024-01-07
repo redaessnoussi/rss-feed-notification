@@ -77,7 +77,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             action: "selectedFeedItem",
             data: feed,
           });
-          console.log("storeClickedFeed: ", feed.rssURL);
+          // console.log("storeClickedFeed: ", feed.rssURL);
           storeClickedFeed(feed.rssURL);
         });
 
@@ -123,7 +123,7 @@ function updateUIWithNewFeeds(rssName, rssURL) {
         action: "selectedFeedItem",
         data: { rssName, rssURL },
       });
-      console.log("storeClickedFeed: ", rssURL);
+      // console.log("storeClickedFeed: ", rssURL);
       storeClickedFeed(rssURL);
     });
 
@@ -141,7 +141,7 @@ function updateUIWithNewFeeds(rssName, rssURL) {
 }
 
 function storeClickedFeed(selectedRss) {
-  console.log("selectedRss :", selectedRss);
+  // console.log("selectedRss :", selectedRss);
   // Send "showCheck" message to index.html with the selected action
   chrome.storage.sync.set({ selectedRssURL: selectedRss });
   chrome.runtime.sendMessage({ action: "showCheck" });
@@ -151,7 +151,7 @@ function loadSavedFeeds() {
   chrome.storage.sync.get(["rssFeeds"], function (result) {
     var rssFeeds = result.rssFeeds || [];
 
-    console.log(rssFeeds);
+    // console.log(rssFeeds);
 
     var storedRssFeeds = document.getElementById("storedRss");
 
@@ -189,7 +189,7 @@ function loadSavedFeeds() {
         // Add a click event listener to the link
         aElement.addEventListener("click", function () {
           storeClickedFeed(feed.rssURL);
-          console.log("storeClickedFeed :", feed.rssURL);
+          // console.log("storeClickedFeed :", feed.rssURL);
           chrome.runtime.sendMessage({
             action: "selectedFeedItem",
             data: feed,

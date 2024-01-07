@@ -3,7 +3,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     var selectedItem = request.data;
 
-    console.log("selectedItem.rssURL", selectedItem.rssURL);
+    // console.log("selectedItem.rssURL", selectedItem.rssURL);
 
     fetchRssData(selectedItem.rssURL);
   }

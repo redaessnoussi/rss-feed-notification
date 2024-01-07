@@ -45,8 +45,8 @@ function refreshRssItems(rssURL) {
       chrome.storage.sync.get(["savedTitle"], function (result) {
         var savedTitle = result.savedTitle;
 
-        console.log("savedTitle: ", savedTitle);
-        console.log("lastItemTitle: ", itemTitles[0]);
+        // console.log("savedTitle: ", savedTitle);
+        // console.log("lastItemTitle: ", itemTitles[0]);
 
         // IF THE FIRST ITEM TITLE IS DIFFERENT FROM THE LAST SAVED TITLE
         // RUN FETCH THE ITEMS AGAIN AND RUN THE SOUND NOTIFICATION

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (chrome.runtime.lastError) {
         console.error(chrome.runtime.lastError);
       } else {
-        console.log("Storage cleared successfully");
+        // console.log("Storage cleared successfully");
       }
     });
   });

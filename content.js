@@ -1,7 +1,7 @@
 // content.js
 
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("content.js");
+  // console.log("content.js");
 });
 
 var selectedItem;
@@ -10,21 +10,21 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "selectedFeedItem") {
     selectedItem = request.data;
 
-    console.log("selectedItem :", selectedItem);
+    // console.log("selectedItem :", selectedItem);
   }
 
   if (request.action === "refreshRssItems") {
     // Check if selectedItem is defined before calling refreshRssItems
     if (selectedItem) {
-      console.log("deja clicka 3la url item:", selectedItem);
+      // console.log("deja clicka 3la url item:", selectedItem);
       refreshRssItems(selectedItem);
     } else {
       chrome.storage.sync.get(["selectedRssURL"], function (result) {
         var selectedRssURL = result.selectedRssURL;
-        console.log(
-          "hna ga3ma darna click 3la url rss item: ",
-          selectedRssURL.rssURL
-        );
+        // console.log(
+        //   "hna ga3ma darna click 3la url rss item: ",
+        //   selectedRssURL.rssURL
+        // );
         refreshRssItems(selectedRssURL.rssURL);
       });
     }
@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 function refreshRssItems(rssURL) {
-  console.log("refreshRssItems :", rssURL);
+  // console.log("refreshRssItems :", rssURL);
   // FETCH RSS FROM THE INPUT
   fetch(rssURL)
     .then((response) => response.text())

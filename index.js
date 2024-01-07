@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const previousBtn = document.getElementById("previousBtn");
   const nextBtn = document.getElementById("nextBtn");
 
-  var pageIndex = 0;
+  let pageIndex = 0;
 
   previousBtn.addEventListener("click", function () {
     if (pageIndex > 0) {
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Listen for messages from popup.html
+  // Listen for messages from the background or other parts of the extension
   chrome.runtime.onMessage.addListener(function (
     request,
     sender,
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function sendMessageToIndex(action) {
-  // Send a message to index.html with the selected action
+  // Send a message to the background script with the selected action
   chrome.runtime.sendMessage({ action: action });
 }
 
@@ -68,5 +68,6 @@ function showFrame(frameToShow) {
 }
 
 function fetchRssItems(pageIndex) {
+  // Send a message to the background script to fetch RSS items
   chrome.runtime.sendMessage({ action: "fetchItemsPage", data: pageIndex });
 }

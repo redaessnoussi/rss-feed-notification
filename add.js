@@ -1,7 +1,6 @@
-// add.js
 document.addEventListener("DOMContentLoaded", function () {
   var readRSSButton = document.getElementById("addFeed");
-  var rssURL = document.getElementsByClassName("feedURL");
+  var rssURLInput = document.getElementById("rssUrl");
   readRSSButton.addEventListener("click", function () {
     addRssURL();
   });
@@ -41,50 +40,58 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     var storedFeeds = request.data;
 
     var storedRssFeeds = document.getElementById("storedRss");
-    storedRssFeeds.innerHTML = `<thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Added RSS</th>
-    </tr>
-    </thead>
-    <tbody>
-      
-    </tbody>
-  </table>`;
+    if (storedRssFeeds) {
+      storedRssFeeds.innerHTML = `<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Added RSS</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>`;
 
-    for (let index = 0; index < storedFeeds.length; index++) {
-      const feed = storedFeeds[index];
+      for (let index = 0; index < storedFeeds.length; index++) {
+        const feed = storedFeeds[index];
 
-      var trElement = document.createElement("tr");
-      var thElement = document.createElement("th");
-      thElement.setAttribute("scope", "row");
-      thElement.textContent = index;
+        var trElement = document.createElement("tr");
+        var thElement = document.createElement("th");
+        thElement.setAttribute("scope", "row");
+        thElement.textContent = index;
 
-      // Append th element to tr element
-      trElement.appendChild(thElement);
+        // Append th element to tr element
+        trElement.appendChild(thElement);
 
-      // Create the td element with the link
-      var tdElement = document.createElement("td");
-      var aElement = document.createElement("a");
-      aElement.setAttribute("href", "#");
-      aElement.setAttribute("class", "feedURL");
-      aElement.textContent = `${feed.rssName}`;
+        // Create the td element with the link
+        var tdElement = document.createElement("td");
+        var aElement = document.createElement("a");
+        aElement.setAttribute("href", "#");
+        aElement.setAttribute("class", "feedURL");
+        aElement.textContent = `${feed.rssName}`;
 
-      // Add a click event listener to the link
-      aElement.addEventListener("click", function () {
-        chrome.runtime.sendMessage({ action: "selectedFeedItem", data: feed });
-        console.log("storeClickedFeed: ", feed.rssURL);
-        storeClickedFeed(feed.rssURL);
-      });
+        // Add a click event listener to the link
+        aElement.addEventListener("click", function () {
+          chrome.runtime.sendMessage({
+            action: "selectedFeedItem",
+            data: feed,
+          });
+          console.log("storeClickedFeed: ", feed.rssURL);
+          storeClickedFeed(feed.rssURL);
+        });
 
-      // Append a element to td element
-      tdElement.appendChild(aElement);
+        // Append a element to td element
+        tdElement.appendChild(aElement);
 
-      // Append td element to tr element
-      trElement.appendChild(tdElement);
+        // Append td element to tr element
+        trElement.appendChild(tdElement);
 
-      var tbodyElement = storedRssFeeds.querySelector(".table tbody");
-      tbodyElement.appendChild(trElement);
+        var tbodyElement = storedRssFeeds.querySelector(".table tbody");
+        tbodyElement.appendChild(trElement);
+      }
+    } else {
+      console.warn("Element with id 'storedRss' not found.");
     }
   }
 });
@@ -94,39 +101,43 @@ function updateUIWithNewFeeds(rssName, rssURL) {
   // Get the container for stored feeds
   var storedRssFeeds = document.getElementById("storedRss");
 
-  var trElement = document.createElement("tr");
-  var thElement = document.createElement("th");
-  thElement.setAttribute("scope", "row");
-  thElement.textContent = "New";
+  if (storedRssFeeds) {
+    var trElement = document.createElement("tr");
+    var thElement = document.createElement("th");
+    thElement.setAttribute("scope", "row");
+    thElement.textContent = "New";
 
-  // Append th element to tr element
-  trElement.appendChild(thElement);
+    // Append th element to tr element
+    trElement.appendChild(thElement);
 
-  // Create the td element with the link
-  var tdElement = document.createElement("td");
-  var aElement = document.createElement("a");
-  aElement.setAttribute("href", "#");
-  aElement.setAttribute("class", "feedURL");
-  aElement.textContent = `${rssName}`;
+    // Create the td element with the link
+    var tdElement = document.createElement("td");
+    var aElement = document.createElement("a");
+    aElement.setAttribute("href", "#");
+    aElement.setAttribute("class", "feedURL");
+    aElement.textContent = `${rssName}`;
 
-  // Add a click event listener to the link
-  aElement.addEventListener("click", function () {
-    chrome.runtime.sendMessage({
-      action: "selectedFeedItem",
-      data: { rssName, rssURL },
+    // Add a click event listener to the link
+    aElement.addEventListener("click", function () {
+      chrome.runtime.sendMessage({
+        action: "selectedFeedItem",
+        data: { rssName, rssURL },
+      });
+      console.log("storeClickedFeed: ", rssURL);
+      storeClickedFeed(rssURL);
     });
-    console.log("storeClickedFeed: ", rssURL);
-    storeClickedFeed(rssURL);
-  });
 
-  // Append a element to td element
-  tdElement.appendChild(aElement);
+    // Append a element to td element
+    tdElement.appendChild(aElement);
 
-  // Append td element to tr element
-  trElement.appendChild(tdElement);
+    // Append td element to tr element
+    trElement.appendChild(tdElement);
 
-  var tbodyElement = storedRssFeeds.querySelector(".table tbody");
-  tbodyElement.appendChild(trElement);
+    var tbodyElement = storedRssFeeds.querySelector(".table tbody");
+    tbodyElement.appendChild(trElement);
+  } else {
+    console.warn("Element with id 'storedRss' not found.");
+  }
 }
 
 function storeClickedFeed(selectedRss) {
@@ -146,16 +157,16 @@ function loadSavedFeeds() {
 
     if (storedRssFeeds) {
       storedRssFeeds.innerHTML = `<table class="table">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Added RSS</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-      </tbody>
-    </table>`;
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Added RSS</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+      </table>`;
 
       for (let index = 0; index < rssFeeds.length; index++) {
         const feed = rssFeeds[index];

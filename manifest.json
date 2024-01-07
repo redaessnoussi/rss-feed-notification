@@ -1,26 +1,41 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "RSS Notifier",
-  "version": "1.0",
+  "version": "2.0",
   "description": "Fetches RSS feed and displays a notification with sound.",
   "permissions": [
     "storage",
     "alarms",
     "notifications",
-    "<all_urls>",
     "activeTab"
   ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "web_accessible_resources": [
-    "add.html",
-    "popup.html",
-    "check.html",
-    "add.js"
+    {
+      "resources": [
+        "add.html",
+        "popup.html",
+        "check.html",
+        "add.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
   ],
   "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": false
+    "service_worker": "background.js"
   },
   "content_scripts": [
     {
@@ -31,18 +46,5 @@
         "content.js"
       ]
     }
-  ],
-  "browser_action": {
-    "default_icon": {
-      "16": "icon.png",
-      "48": "icon.png",
-      "128": "icon.png"
-    },
-    "default_popup": "index.html"
-  },
-  "icons": {
-    "16": "icon.png",
-    "48": "icon.png",
-    "128": "icon.png"
-  }
+  ]
 }

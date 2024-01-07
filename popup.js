@@ -1,11 +1,9 @@
-// popup.js
-
 document.addEventListener("DOMContentLoaded", function () {
   var addPageButton = document.getElementById("addPage");
   var checkPageButton = document.getElementById("checkPage");
   var clearRssButton = document.getElementById("clearRss");
 
-  sendMessageToIndex("showPopup");
+  sendMessageToBackground("showPopup");
 
   clearRssButton.addEventListener("click", function () {
     // Clear all data stored in chrome.storage.sync
@@ -19,19 +17,20 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   addPageButton.addEventListener("click", function () {
-    sendMessageToIndex("showAdd");
+    sendMessageToBackground("showAdd");
   });
 
   checkPageButton.addEventListener("click", function () {
-    sendMessageToIndex("showCheck");
+    sendMessageToBackground("showCheck");
   });
 });
 
-function sendMessageToIndex(action) {
-  // Send a message to index.html with the selected action
+function sendMessageToBackground(action) {
+  // Send a message to the background script with the selected action
   chrome.runtime.sendMessage({ action: action });
 }
 
 function openPage(pageName) {
+  // Open a new tab with the specified URL
   chrome.tabs.create({ url: pageName });
 }
